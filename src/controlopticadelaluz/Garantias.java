@@ -7,19 +7,20 @@ package controlopticadelaluz;
 
 /**
  *
- * @author lara
+ * @author jose
  */
-public class Ventas extends javax.swing.JPanel {
+public class Garantias extends javax.swing.JPanel {
 
     /**
-     * Creates new form Ventas
+     * Creates new form Garantias
      */
-    public Ventas() {
+    public Garantias() {
         initComponents();
     }
 
-    Ventas(Principal aThis) {
-        initComponents();
+    Garantias(Principal aThis) {
+           initComponents();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

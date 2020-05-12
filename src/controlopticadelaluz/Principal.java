@@ -5,6 +5,8 @@
  */
 package controlopticadelaluz;
 
+import hilos.Reloj;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,12 +24,16 @@ import javax.swing.Timer;
  *
  * @author lara
  */
-public class Principal extends javax.swing.JFrame {
-
+public class Principal extends javax.swing.JFrame{
+ 
      Tablero t = new Tablero(this);
      Producto p = new Producto();
      InicioSesion v = new InicioSesion(this, rootPaneCheckingEnabled);
-    
+     Ventas ven = new Ventas();
+     Garantias ga = new Garantias();
+     Almacen alm = new Almacen();
+     
+     
     /**
      * Creates new form Principal
      */
@@ -37,12 +43,13 @@ public class Principal extends javax.swing.JFrame {
         jSplitPane1.setDividerLocation(200);
                jSplitPane1.setRightComponent(t);
                 String dateStr = "2018-06-22T10:00:00";
+               v.darObjetos(this);
                 v.show();
-                
-                   hora();
-   
+                jLabel1.setForeground(Color.white);
+                hora();
+              
     }
-    
+        
      private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     
@@ -60,13 +67,16 @@ public class Principal extends javax.swing.JFrame {
     
     
     public void hora(){
+         
+        Reloj re = new Reloj(this);
+        Thread hilo1 = new Thread(re);
+        hilo1.start();
+       	 	   
+
+    }
     
-        
-        Calendar calendario = new GregorianCalendar();
-        String textoHora = ""+calendario.HOUR_OF_DAY+":"+calendario.MINUTE+":"+calendario.SECOND;
-        this.jLabel1.setText(textoHora);
-        
-        
+    public void darTexto(String m){
+        jLabel1.setText(m);
     }
     
     
@@ -75,10 +85,24 @@ public class Principal extends javax.swing.JFrame {
        jSplitPane1.setRightComponent(p); 
     }
     
+    public void mostrarPanelVentas(){
+        jSplitPane1.remove(2);
+        jSplitPane1.setRightComponent(ven);
     
+    }
     
+    public void mostrarAlmacen(){
+    jSplitPane1.remove(2);
+    jSplitPane1.setRightComponent(alm);
+    
+    }
    
-
+    public void mostrarGarantias(){
+    
+    jSplitPane1.remove(2);
+    jSplitPane1.setRightComponent(ga);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,6 +160,11 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(136, 235, 249));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlopticadelaluz/Inventario.png"))); // NOI18N
         jButton3.setText("Almacen");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         PanelMenu.add(jButton3);
 
         btnProductos.setBackground(new java.awt.Color(136, 235, 249));
@@ -151,13 +180,26 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(136, 235, 249));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/controlopticadelaluz/Reporte.png"))); // NOI18N
         jButton4.setText("Garantias");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         PanelMenu.add(jButton4);
 
         jButton6.setBackground(new java.awt.Color(136, 235, 249));
         jButton6.setText("Cerrar sesión");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         PanelMenu.add(jButton6);
         PanelMenu.add(filler1);
 
+        jLabel1.setBackground(new java.awt.Color(140, 155, 31));
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 3, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Hora:");
         PanelMenu.add(jLabel1);
 
@@ -169,7 +211,8 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+            mostrarPanelVentas();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTableroActionPerformed
@@ -182,6 +225,20 @@ public class Principal extends javax.swing.JFrame {
         mostrarPanelProductos();
     }//GEN-LAST:event_btnProductosActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        mostrarPanelVentas();
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        mostrarGarantias();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -213,6 +270,7 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Principal().setVisible(true);
+                
             }
             
             

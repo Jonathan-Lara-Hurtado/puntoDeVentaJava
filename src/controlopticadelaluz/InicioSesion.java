@@ -5,9 +5,13 @@
  */
 package controlopticadelaluz;
 
+import baseDatos.Conexion;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,11 +29,17 @@ public class InicioSesion extends javax.swing.JDialog {
     /**
      * Creates new form InicioSesion
      */
+    Principal a;
+    
     public InicioSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();        
         Configuraciones();
-        statusBar.setText("hola");
+    }
+    
+    public void darObjetos(Principal e){
+      this.a = e;
+    
     }
     
     
@@ -37,9 +47,26 @@ public class InicioSesion extends javax.swing.JDialog {
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+   
+    this.jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                click(e);
+              
+            }
+        });
     }
     
- 
+    public void click(ActionEvent e){
+    
+       if( e.getSource() == jButton1)
+       {
+       
+           
+           a.v.hide();
+       }
+       
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

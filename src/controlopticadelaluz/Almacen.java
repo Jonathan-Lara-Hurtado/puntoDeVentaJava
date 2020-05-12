@@ -7,18 +7,14 @@ package controlopticadelaluz;
 
 /**
  *
- * @author lara
+ * @author jose
  */
-public class Ventas extends javax.swing.JPanel {
+public class Almacen extends javax.swing.JPanel {
 
     /**
-     * Creates new form Ventas
+     * Creates new form Almacen
      */
-    public Ventas() {
-        initComponents();
-    }
-
-    Ventas(Principal aThis) {
+    public Almacen() {
         initComponents();
     }
 
